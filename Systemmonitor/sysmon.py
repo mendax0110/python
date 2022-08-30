@@ -52,7 +52,7 @@ def cpu():
     print()
     print('----------CPU Info----------')
     print()
-    print("CPU Usage : ", cpuUsage, "GiB")
+    print("CPU Usage : ",cpuUsage, "GiB")
 
 #print the Memory usage
 def memory():
