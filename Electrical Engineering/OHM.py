@@ -1,4 +1,5 @@
 #this is a simple Example of te usage of OHM's Law
+import sys
 
 def OHM(U = 0, I = 0, R = 0):
     if U == 0:
