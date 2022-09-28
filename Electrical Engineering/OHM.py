@@ -3,7 +3,8 @@ import sys
 
 #Define the function
 def OHM(U = 0, I = 0, R = 0):
-
+    
+    #Check if the user has entered 2 values
     if(U == 0):
         U = I * R
         print("U = " + str(U) + "V")
