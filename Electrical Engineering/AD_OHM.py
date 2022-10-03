@@ -2,6 +2,7 @@
 import sys
 import os
 
+#print the welcome message and the menu
 print("Welcome to the Ohm's Law Calculator")
 print("Please enter the following values")
 
@@ -25,6 +26,7 @@ elif not x:
     Z = v / i
     x = (Z ** 2 - r ** 2) ** 0.5 * 1j
 else:
+    #tell the user which values are beeing calculated
     print("Leave one parameter blank, to calculate the others")
 
 #display the results
