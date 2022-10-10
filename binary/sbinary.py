@@ -2,6 +2,7 @@
 import math
 import random
 
+#search for the binary number
 def binary_search(arr, target):
 
     arr.sort()
@@ -19,7 +20,7 @@ def binary_search(arr, target):
         else:
             return arr.index(target)
 
-
+#print the result
 print(binary_search([1, 2, 3, 4, 5], 3)) # 2
 print(binary_search([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 7)) # 6
 print(binary_search([3, 2, 5, 9, 1, 6, 10], 10)) # 6
