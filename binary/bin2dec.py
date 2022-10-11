@@ -5,6 +5,7 @@ import math
 
 #function to select from the menu
 def select_from_menu():
+    
     if(num == 1):
         binary = input("Enter a binary number: ")
         decimal = binary_to_decimal(binary)
