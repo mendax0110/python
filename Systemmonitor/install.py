@@ -26,7 +26,7 @@ while True:
         sys.exit()
     # if the user enters something else
     else:
-        # ask the user again
+        # ask the user again to enter a valid input
         continue
 
 # exit the program
