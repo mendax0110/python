@@ -1,14 +1,14 @@
-#import the sys module
+# import the sys module
 import sys
 
-l = {10:'A', 11:'B', 12:'C', 13:'D', 14:'E', 15:'F'}
+l = {10: 'A', 11: 'B', 12: 'C', 13: 'D', 14: 'E', 15: 'F'}
 
-#get the decimal value from the user
+# get the decimal value from the user
 dec = int(input("Enter the decimal number: "))
 
 c = " "
 
-#convert the decimal number to hex
+# convert the decimal number to hex
 while dec > 0:
 
     a = dec % 16
@@ -19,9 +19,8 @@ while dec > 0:
         c = str(a) + c
     dec = dec // 16
 
-    #print the result
+    # print the result
     print("The hexadecimal number is: ", c[::-1])
 
-    #exit the program
+    # exit the program
     sys.exit()
-

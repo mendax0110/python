@@ -1,13 +1,13 @@
-#import the required modules
+# import the required modules
 import sys
 import subprocess
 
-#ask which moduke to install
+# ask which moduke to install
 print("Which module do you want to install?")
-#get the input
+# get the input
 module = input("Module: ")
 
-#instll the module
+# instll the module
 subprocess.call([sys.executable, "-m", "pip", "install", module])
 
 # check if the user wants to install another module

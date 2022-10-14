@@ -1,4 +1,4 @@
-#import the modules
+# import the modules
 import re
 import subprocess
 import shlex
@@ -7,7 +7,8 @@ import psutil
 import click
 from python_toolbox import caching
 
-#get the cmdline of the process
+
+# get the cmdline of the process
 @caching.cache()
 def get_cmdline(process):
     try:
@@ -15,7 +16,8 @@ def get_cmdline(process):
     except psutil.AccessDenied:
         return ('',)
 
-#get the cwd of the process
+
+# get the cwd of the process
 @caching.cache()
 def get_cwd(process):
     try:
@@ -23,15 +25,15 @@ def get_cwd(process):
     except psutil.AccessDenied:
         return None
 
-#get the environ of the process
+
+# get the environ of the process
 @click.command()
 @click.argument('search_str', default='')
 @click.option('-k', '--kill', is_flag=True, help='Kill the process')
 @click.option('-r', '--restart', is_flag=True, help='Restart the process')
-
-
 def ps(search_str, kill, restart):
-    python_processes = [process for process in psutil.process_iter() if re.match(r'^python[-.0-9]*w?(:?.exe)?$', process.name())]
+    python_processes = [process for process in psutil.process_iter() if
+                        re.match(r'^python[-.0-9]*w?(:?.exe)?$', process.name())]
     processes = [process for process in python_processes
                  if len(get_cmdline(process)) > 1 and search_str in get_cmdline(process)[1].lower()]
 
@@ -46,6 +48,7 @@ def ps(search_str, kill, restart):
         if restart:
             new = subprocess.Popen(cmdline, cwd=cwd)
             click.echo('Restarted process {0} as {1}'.format(process.pid, new.pid), err=True)
+
 
 if __name__ == '__main__':
     ps()

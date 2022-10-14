@@ -1,16 +1,18 @@
-#import the modules
+# import the modules
 import sys
 from tkinter import *
 import time
+
 
 def times():
     CURRENT_TIME = time.strftime("%H:%M:%S")
     CLOCK.config(text=CURRENT_TIME)
     CLOCK.after(200, times)
 
+
 root = Tk()
 root.geometry("500x250")
-CLOCK=Label(root, font=("times", 50, 'bold'), bg='green')
+CLOCK = Label(root, font=("times", 50, 'bold'), bg='green')
 CLOCK.grid(row=2, column=2, pady=25, padx=100)
 times()
 
