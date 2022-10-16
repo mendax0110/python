@@ -4,7 +4,7 @@ from sys import setprofile
 try:
     from tkinter import *
 except ImportError:
-    from Tkinter import *
+    from Tk import *
 
 # Define the colors of the resistors
 resistor_color = ["black", "brown", "red", "orange", "yellow", "green", "blue", "violet", "gray", "white"]
@@ -70,7 +70,7 @@ class Application_Resistor(Frame):
         self.update()
 
     # calculate the resistor value
-    def calcualte(self):
+    def calculate(self):
         val = str(resistor_color.index(self.current_colors[0])) + str(resistor_color.index(self.current_colors[1]))
 
         for i in range(resistor_color.index(self.current_colors[2])):
@@ -89,7 +89,7 @@ class Application_Resistor(Frame):
         for i in range(4):
             self.resistor.create_rectangle((60 * i + 40, 10, 60 * i + 70, 90), fill=self.current_colors[i])
             self.result.delete(0.0, END)
-            self.result.insert(END, "The Resistor Value is: " + self.calcualte() + "ohm")
+            self.result.insert(END, "The Resistor Value is: " + self.calculate() + "ohm")
 
     # change the color
     def change(self, band, color):
