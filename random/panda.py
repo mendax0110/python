@@ -9,13 +9,11 @@ painter.pensize(3)
 painter.speed(1)
 
 # draw the face
-
 painter.color('black', 'black')
 painter.pendown()
 painter.circle(100)
 
 # draw the right ear
-
 painter.penup()
 painter.setx(50)
 painter.sety(185)
@@ -27,7 +25,6 @@ painter.circle(30, -260)
 painter.end_fill()
 
 # draw the left ear
-
 painter.penup()
 painter.setx(-50)
 painter.sety(185)
@@ -39,9 +36,7 @@ painter.right(90)
 painter.circle(30, 260)
 painter.end_fill()
 
-
 # draw the left eye
-
 painter.penup()
 painter.setx(-40)
 painter.sety(90)
@@ -73,7 +68,6 @@ painter.circle(5)
 painter.end_fill()
 
 # draw the right eye
-
 painter.penup()
 painter.setx(40)
 painter.sety(90)
@@ -105,7 +99,6 @@ painter.circle(5)
 painter.end_fill()
 
 # draw the mouth and the nose
-
 painter.color('black', 'black')
 painter.penup()
 painter.setx(0)
