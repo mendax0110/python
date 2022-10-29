@@ -39,7 +39,7 @@ def plot_implicit(fn, bbox=(-1.5, 1.5)):
         cset = ax.contour(X+x, Y, Z, [x], zdir='x',colors=('red',))
 
     # must set plot limits because the contour will likely extend
-    # way beyond the displayed level.  Otherwise matplotlib extends the plot limits
+    # way beyond the displayed level.  Otherwise, matplotlib extends the plot limits
     # to encompass all values in the contour.
     ax.set_zlim3d(zmin, zmax)
     ax.set_xlim3d(xmin, xmax)
