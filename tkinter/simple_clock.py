@@ -3,13 +3,13 @@ import sys
 from tkinter import *
 import time
 
-
+# time configuation
 def times():
     CURRENT_TIME = time.strftime("%H:%M:%S")
     CLOCK.config(text=CURRENT_TIME)
     CLOCK.after(200, times)
 
-
+# window configuation
 root = Tk()
 root.geometry("500x250")
 CLOCK = Label(root, font=("times", 50, 'bold'), bg='green')

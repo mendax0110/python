@@ -3,7 +3,6 @@ import sys
 import os
 import math
 
-
 # function to select from the menu
 def select_from_menu():
     if (num == 1):
@@ -15,7 +14,6 @@ def select_from_menu():
         decimal = input("Enter a decimal number: ")
         binary = decimal_to_binary(decimal)
         return (binary)
-
 
 # function to convert binary to decimal
 def binary_to_decimal(num):
@@ -36,7 +34,6 @@ def binary_to_decimal(num):
 
     return (decimal)
 
-
 # function to convert decimal to binary
 def decimal_to_binary(num):
     qout = int(num)
@@ -52,7 +49,6 @@ def decimal_to_binary(num):
 
     binary.reverse()
     return (int(''.join(binary)))
-
 
 # print the user menu
 print("Binary to Decimal Converter")
