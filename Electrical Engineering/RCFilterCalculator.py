@@ -1,13 +1,12 @@
-import sys
 import math
-
-# import the Qt5 modules
-from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QLineEdit, QComboBox, QVBoxLayout, QPushButton
-from PyQt5.QtGui import QIntValidator, QDoubleValidator
-from PyQt5.QtCore import Qt
+import sys
 
 # import the PyQt5 plotting module
 import pyqtgraph as pg
+from PyQt5.QtGui import QDoubleValidator
+# import the Qt5 modules
+from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QLineEdit, QComboBox, QVBoxLayout, QPushButton
+
 
 class FilterCalculator(QWidget):
     def __init__(self):
@@ -63,13 +62,14 @@ class FilterCalculator(QWidget):
         for x in x_data:
             if filter_type == "Lowpass":
                 y = 1 / (1 + (1j * x * resistor * capacitor))
-            else: # filter_type == "Highpass"
+            else:  # filter_type == "Highpass"
                 y = (1j * x * resistor * capacitor) / (1 + (1j * x * resistor * capacitor))
             y_data.append(abs(y))
 
         # plot the data
         self.plot_widget.clear()
         self.plot_widget.plot(x_data, y_data)
+
 
 if __name__ == "__main__":
     # create the Qt5 application and the filter calculator window
@@ -78,4 +78,3 @@ if __name__ == "__main__":
 
     # start the Qt5 application
     sys.exit(app.exec_())
-

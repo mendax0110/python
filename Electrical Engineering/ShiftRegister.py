@@ -1,5 +1,6 @@
 import tkinter as tk
 
+
 class ShiftRegister:
     def __init__(self, root, num_bits):
         self.num_bits = num_bits
@@ -42,14 +43,17 @@ class ShiftRegister:
         self.canvas.delete(self.oval_id)
         self.oval_id = None
 
+
 def update_shift_register():
     if shift_register.auto_shift:
         shift_register.shift_left()
         shift_register.update_display()
     root.after(500, update_shift_register)
 
+
 def toggle_auto_shift():
     shift_register.auto_shift = not shift_register.auto_shift
+
 
 root = tk.Tk()
 root.title("Shift Register Simulator")
@@ -65,9 +69,11 @@ right_button.grid(row=1, column=1)
 entry = tk.Entry(root)
 entry.grid(row=1, column=2)
 
+
 def set_value_from_entry():
     shift_register.set_value(int(entry.get()))
     shift_register.update_display()
+
 
 set_button = tk.Button(root, text="Set Value", command=set_value_from_entry)
 set_button.grid(row=1, column=3)

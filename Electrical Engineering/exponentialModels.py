@@ -2,18 +2,20 @@ import matplotlib.pyplot as plt
 import tkinter as tk
 from tkinter import ttk
 
+
 def visualize_exponential(base, exponent, x_range):
     # Calculate the y values for the given x range
     y_values = [base ** x for x in x_range]
-    
+
     # Create the plot
     plt.plot(x_range, y_values)
     plt.xlabel('x')
     plt.ylabel('y')
     plt.title(f'Exponential Function: y = {base}^x')
-    
+
     # Show the plot
     plt.show()
+
 
 # Create the root window
 root = tk.Tk()

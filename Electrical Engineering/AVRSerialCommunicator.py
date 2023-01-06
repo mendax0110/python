@@ -20,6 +20,7 @@ if not port_options:
     port_options = ['No available ports']
 port_field = tk.OptionMenu(window, port_var, *port_options)
 
+
 # Create the send button
 def send_data():
     # Read the data from the input field and write it to the serial port
@@ -30,7 +31,9 @@ def send_data():
     else:
         output_field.insert(tk.END, 'Error: Not connected to a serial port\n')
 
+
 send_button = tk.Button(window, text="Send", command=send_data)
+
 
 # Create the receive button
 def receive_data():
@@ -41,7 +44,9 @@ def receive_data():
     else:
         output_field.insert(tk.END, 'Error: Not connected to a serial port\n')
 
+
 receive_button = tk.Button(window, text="Receive", command=receive_data)
+
 
 # Create the connect button
 def connect():
@@ -58,6 +63,7 @@ def connect():
         )
     except serial.serialutil.SerialException:
         output_field.insert(tk.END, 'Error: Unable to connect to specified port\n')
+
 
 connect_button = tk.Button(window, text="Connect", command=connect)
 

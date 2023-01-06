@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from tkinter import *
 
+
 # Define the function for calculating and plotting the filter's frequency response
 def calculate_and_plot(R, C):
     # Calculate the filter's corner frequency
@@ -19,6 +20,7 @@ def calculate_and_plot(R, C):
     plt.ylabel("Gain (dB)")
     plt.show()
 
+
 # Create the main window
 root = Tk()
 root.title("RC Filter Calculator")
@@ -30,7 +32,8 @@ capacitance_label = Label(root, text="Capacitance (farads):")
 capacitance_entry = Entry(root)
 
 # Create the "Calculate" button
-button = Button(root, text="Calculate", command=lambda: calculate_and_plot(float(resistance_entry.get()), float(capacitance_entry.get())))
+button = Button(root, text="Calculate",
+                command=lambda: calculate_and_plot(float(resistance_entry.get()), float(capacitance_entry.get())))
 
 # Place the input fields and button in the window
 resistance_label.grid(row=0, column=0)
@@ -41,4 +44,3 @@ button.grid(row=2, column=0, columnspan=2)
 
 # Start the main loop
 root.mainloop()
-

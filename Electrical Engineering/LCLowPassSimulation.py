@@ -15,6 +15,7 @@ c_entry = tk.Entry(root)
 # Create the button to calculate the response
 calc_button = ttk.Button(root, text="Calculate")
 
+
 # Define the function to be called when the button is clicked
 def calculate():
     # Get the values entered by the user
@@ -22,7 +23,7 @@ def calculate():
     c = float(c_entry.get())
 
     # Calculate the transfer function of the filter
-    s = signal.lti([], [l*c, 1], 1)
+    s = signal.lti([], [l * c, 1], 1)
 
     # Calculate the frequency response of the filter
     w, mag, phase = s.bode()
@@ -36,6 +37,7 @@ def calculate():
     plt.grid()
     plt.show()
 
+
 # Set the button to call the calculate function when clicked
 calc_button.config(command=calculate)
 
@@ -48,4 +50,3 @@ calc_button.grid(row=2, column=0, columnspan=2)
 
 # Start the main event loop
 root.mainloop()
-

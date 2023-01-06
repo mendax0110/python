@@ -16,6 +16,7 @@ port_var = tk.StringVar(window)
 port_var.set(port_names[0])
 tk.OptionMenu(window, port_var, *port_names).grid(row=0, column=1)
 
+
 # Add a button to check the health status
 def check_health():
     # Open the serial port
@@ -43,6 +44,7 @@ def check_health():
 
     # Close the serial port
     ser.close()
+
 
 tk.Button(window, text="Check Health", command=check_health).grid(row=1, column=0, columnspan=2)
 

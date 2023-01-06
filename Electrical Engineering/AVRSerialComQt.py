@@ -3,7 +3,8 @@ import serial
 from serial.tools import list_ports
 from PyQt5 import QtCore, QtWidgets
 
-# Main 
+
+# Main
 class MainWindow(QtWidgets.QWidget):
     def __init__(self):
         super().__init__()
@@ -73,6 +74,7 @@ class MainWindow(QtWidgets.QWidget):
 
         # Close the serial port
         ser.close()
+
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication([])
