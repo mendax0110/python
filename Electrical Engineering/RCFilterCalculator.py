@@ -8,6 +8,7 @@ from PyQt5.QtGui import QDoubleValidator
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QLineEdit, QComboBox, QVBoxLayout, QPushButton
 
 
+# create the FilterCalculator with QWidget
 class FilterCalculator(QWidget):
     def __init__(self):
         super().__init__()
@@ -46,6 +47,7 @@ class FilterCalculator(QWidget):
         self.setLayout(vbox)
         self.show()
 
+    # calculate the filter
     def calculate_filter(self):
         # get the filter type and values from the GUI widgets
         filter_type = self.type_combo.currentText()
