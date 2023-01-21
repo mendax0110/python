@@ -14,7 +14,7 @@ total_time = 10
 resistance = float(input("Enter the resistance of the circuit (Ohms): "))
 voltage = float(input("Enter the applied voltage (V): "))
 
-# Create arrays to store the charge and time values
+# Create arrays to store the charge and time value
 charges = []
 times = []
 
