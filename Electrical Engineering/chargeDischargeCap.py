@@ -27,9 +27,11 @@ class CapacitorCurve:
         plt.xlabel("Time (s)")
         plt.ylabel("Voltage (V)")
         plt.title("Capacitor Charging/Discharging Curve")
+        plt.grid(True)
         plt.show()
 
 
 root = Tk()
 my_gui = CapacitorCurve(root)
 root.mainloop()
+
