@@ -1,10 +1,10 @@
 import matplotlib
 import numpy as np
+import matplotlib.pyplot as plt
+import tkinter as tk
 
 matplotlib.use("TkAgg")
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-import matplotlib.pyplot as plt
-import tkinter as tk
 
 
 class DiodeCurvePlotter:
