@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QLineEdit, QPushButton, QVBoxLayout, QWidget
+from PyQt6.QtWidgets import QApplication, QMainWindow, QLabel, QLineEdit, QPushButton, QVBoxLayout, QWidget
 
 
 class DiodeGraph(QMainWindow):
@@ -44,4 +44,4 @@ class DiodeGraph(QMainWindow):
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     graph = DiodeGraph()
-    sys.exit(app.exec_())
+    sys.exit(app.exec())
