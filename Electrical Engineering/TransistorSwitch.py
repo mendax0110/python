@@ -1,102 +1,84 @@
 import sys
 import math
-from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QPushButton, QLineEdit, QLabel
-from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
-from matplotlib.figure import Figure
+import numpy as np
+import matplotlib.pyplot as plt
+from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QRadioButton, QPushButton
 
 
-class MainWindow(QMainWindow):
+class MainWindow(QWidget):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("Switch Simulator")
-        self.setGeometry(100, 100, 800, 600)
+        self.initUI()
 
-        # Set up the main widget
-        main_widget = QWidget(self)
-        self.setCentralWidget(main_widget)
+    def initUI(self):
+        # Create the radio buttons for NPN/PNP selection
+        self.npn_radio = QRadioButton('NPN')
+        self.pnp_radio = QRadioButton('PNP')
+        self.npn_radio.setChecked(True)
 
-        # Set up the layout
-        layout = QVBoxLayout(main_widget)
+        # Create the button for generating the sine wave
+        self.button = QPushButton('Generate Sine Wave')
+        self.button.clicked.connect(self.plot_sine_wave)
 
-        # Add the matplotlib figure canvas to the layout
-        figure = Figure(figsize=(5, 4), dpi=100)
-        self.canvas = FigureCanvas(figure)
-        layout.addWidget(self.canvas)
+        # Create the layout
+        layout = QVBoxLayout()
+        layout.addWidget(self.npn_radio)
+        layout.addWidget(self.pnp_radio)
+        layout.addWidget(self.button)
 
-        # Add input boxes for the user to enter the input voltage and resistance
-        input_voltage_label = QLabel("Input Voltage (V):")
-        self.input_voltage_edit = QLineEdit()
-        resistance_label = QLabel("Resistance (Ω):")
-        self.resistance_edit = QLineEdit()
-        layout.addWidget(input_voltage_label)
-        layout.addWidget(self.input_voltage_edit)
-        layout.addWidget(resistance_label)
-        layout.addWidget(self.resistance_edit)
+        # Set the layout
+        self.setLayout(layout)
+        self.setWindowTitle('Transistor Circuit Sine Wave')
+        self.show()
 
-        # Add a button to update the plot
-        button = QPushButton("Switch")
-        button.clicked.connect(self.update_plot)
-        layout.addWidget(button)
-
-        # Set up the initial plot
-        self.plot(figure, 1.0)
-
-    def plot(self, figure, input_voltage):
-        # Create a subplot for the voltage graph
-        voltage_subplot = figure.add_subplot(111)
-        voltage_subplot.set_xlabel("Time (ms)")
-        voltage_subplot.set_ylabel("Voltage (V)")
-        voltage_subplot.set_title("Voltage Graph")
-
-        # Calculate the output voltage
-        time = [i / 10.0 for i in range(361)]
-        input_voltage_values = [input_voltage * math.sin(i * math.pi / 180.0) for i in range(361)]
-
-        # Check if the resistance field is not blank
-        if self.resistance_edit.text() != '':
-            # Convert the resistance value to float
-            resistance = float(self.resistance_edit.text())
+    def plot_sine_wave(self):
+        # Get the selected transistor type from the radio buttons
+        if self.npn_radio.isChecked():
+            transistor_type = "NPN"
         else:
-            # Set default resistance value if field is blank
-            resistance = 1.0
+            transistor_type = "PNP"
 
-        output_voltage_values = [self.calculate_output_voltage(v) for v in input_voltage_values]
+        # Generate the input and output sine waves
+        num_points = 1000
+        frequency = 1000
+        amplitude = 1
+        phase_shift = math.pi / 2
+        input_dc_offset = 0.5
+        output_dc_offset = 0.5
+        input_min = input_dc_offset - amplitude
+        input_max = input_dc_offset + amplitude
+        output_min = output_dc_offset - amplitude
+        output_max = output_dc_offset + amplitude
+        t = np.linspace(0, 1, num_points)
+        input_waveform = input_dc_offset + amplitude * np.sin(2 * np.pi * frequency * t + phase_shift)
+        output_waveform = np.zeros(num_points)
+        for i in range(num_points):
+            input_value = input_waveform[i]
+            if transistor_type == "NPN":
+                if input_value < 0.7:
+                    output_waveform[i] = 0
+                else:
+                    output_waveform[i] = input_value - 0.7
+            elif transistor_type == "PNP":
+                if input_value > 0.3:
+                    output_waveform[i] = 0
+                else:
+                    output_waveform[i] = 0.3 - input_value
 
-        # Plot the output voltage
-        voltage_subplot.plot(time, output_voltage_values, label="Output Voltage")
-        voltage_subplot.legend()
-
-        # Draw the plot
-        self.canvas.draw()
-
-    def update_plot(self):
-        # Check if the input voltage field is not blank
-        if self.input_voltage_edit.text() != '':
-            # Convert the input voltage value to float
-            input_voltage = float(self.input_voltage_edit.text())
-        else:
-            # Set default input voltage value if field is blank
-            input_voltage = 1.0
-
-        # Clear the plot and redraw with updated values
-        self.canvas.figure.clear()
-        self.plot(self.canvas.figure, input_voltage)
-
-    def calculate_output_voltage(self, input_voltage):
-        if self.resistance_edit.text() != '':
-            resistance = float(self.resistance_edit.text())
-        else:
-            resistance = 1.0
-        beta = 100.0
-        base_voltage = 0.7
-        saturation_voltage = 0.2
-        current = (input_voltage - base_voltage) / resistance
-        output_voltage = max(0, min(beta * current, saturation_voltage)) * resistance
-        return output_voltage
+        # Create the plot
+        fig, ax = plt.subplots()
+        ax.plot(input_waveform, np.zeros(num_points), 'o', label='Input')
+        ax.plot(input_waveform, output_waveform, '.', label='Output')
+        ax.set_xlim(input_min, input_max)
+        ax.set_ylim(output_min, output_max)
+        ax.set_xlabel('Input')
+        ax.set_ylabel('Output')
+        ax.set_title('Transistor Circuit Sine Wave ({})'.format(transistor_type))
+        ax.legend()
+        plt.show()
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     app = QApplication(sys.argv)
     window = MainWindow()
-    window.show()
     sys.exit(app.exec_())
