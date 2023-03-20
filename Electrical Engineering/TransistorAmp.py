@@ -3,6 +3,12 @@ from PyQt6.QtWidgets import QApplication, QMainWindow, QLabel, QLineEdit, QPushB
 import matplotlib.pyplot as plt
 
 
+def plotFrequency(frequency):
+    # Plot the frequency on a graph
+    plt.plot([0, 1], [frequency, frequency])
+    plt.show()
+
+
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -44,15 +50,10 @@ class MainWindow(QMainWindow):
         amplified_frequency = input_frequency * 10
 
         # Plot the amplified frequency on a graph
-        self.plotFrequency(amplified_frequency)
+        plotFrequency(amplified_frequency)
 
         # Show the amplified frequency
         self.amplified_frequency_label.setText("Amplified Frequency: " + str(amplified_frequency))
-
-    def plotFrequency(self, frequency):
-        # Plot the frequency on a graph
-        plt.plot([0, 1], [frequency, frequency])
-        plt.show()
 
 
 if __name__ == "__main__":
