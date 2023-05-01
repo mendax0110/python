@@ -43,6 +43,7 @@ class MainWindow(QWidget):
         self.ax.set_ylabel('Id (mA)')
         self.ax.set_xlim(0, 10)
         self.ax.set_ylim(0, 5)
+        self.ax.grid(True)
 
         # Create canvas to display plot
         self.canvas = FigureCanvas(self.fig)
@@ -62,18 +63,13 @@ class MainWindow(QWidget):
     def update_graph(self):
         vgs = self.vgs_slider.value() / 10
         vds_max = self.vds_slider.value() / 10
-        vds = []
-        id = []
 
-        # Calculate Id values for given Vgs and Vds
-        for vd in range(0, int(vds_max * 100), 1):
-            vd = vd / 100
-            id.append(calculate_id(vgs, vd))
-            vds.append(vd)
+        # Calculate Vds and Id values for given Vgs and Vds
+        vds, id = calculate_id(vgs, vds_max)
 
         # Update plot with new data
         self.line1.set_data(vds, id)
-        self.line2.set_data(vds, [vds_val * 1000 for vds_val in vds])
+        self.line2.set_data(vds, vds)
         self.ax.relim()
         self.ax.autoscale_view()
         self.canvas.draw()
@@ -103,16 +99,25 @@ def calculate_id(vgs, vds):
     vth = 2
     k = 0.5
     lam = 0.1
-    id = 0
+    id_vals = []
+    vds_vals = []
 
-    if vgs < vth:
-        id = 0
-    elif vds < vgs - vth:
-        id = k * (vgs - vth - vds / 2) * vds
-    else:
-        id = k / 2 * (vgs - vth) ** 2 * (1 + lam * vds)
+    for vd in range(0, 1001):
+        vd = vd / 100
+        if vds < vd:
+            break
 
-    return id * 1000
+        if vgs <= vth:
+            id = 0
+        elif vds < vgs - vth:
+            id = k * (vgs - vth - vds / 2) * vds
+        else:
+            id = k / 2 * (vgs - vth) ** 2 * (1 + lam * vds)
+
+        id_vals.append(id * 1000)
+        vds_vals.append(vd)
+
+    return vds_vals, id_vals
 
 
 if __name__ == "__main__":

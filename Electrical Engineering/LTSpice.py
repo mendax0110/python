@@ -6,7 +6,7 @@ from PyLTSpice.LTSpice_RawRead import LTSpiceRawRead
 import matplotlib.pyplot as plt
 
 
-# Create a main window class
+# Create a main window class, inheriting from QMainWindow
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -44,7 +44,7 @@ class MainWindow(QMainWindow):
         # Initialize file path
         self.file_path = None
 
-    # load the circuit file
+    # load the circuit file, simulate it, and get the voltage and current traces
     def load_circuit(self):
         # Define file dialog to let the user select a circuit file
         file_dialog = QFileDialog()
@@ -68,7 +68,7 @@ class MainWindow(QMainWindow):
             file_name = os.path.basename(self.file_path)
             self.label.setText(f"Loaded file: {file_name}")
 
-    # Save the circuit file
+    # Save the circuit file, overwriting the original file
     def save_circuit(self):
         if self.file_path is not None:
             # Write the current circuit to the original file
@@ -83,13 +83,13 @@ class MainWindow(QMainWindow):
             file_name = os.path.basename(self.file_path)
             self.label.setText(f"Saved file: {file_name}")
 
-    # Open the circuit file in a text editor
+    # Open the circuit file in a text editor, so the user can edit it
     def edit_circuit(self):
         if self.file_path is not None:
             # Open the circuit file in a text editor
             os.system(f"start notepad.exe {self.file_path}")
 
-    # Plot the voltage and current traces
+    # Plot the voltage and current traces, and show the graph
     def show_graph(self):
         if self.file_path is not None:
             # Plot the voltage and current traces
@@ -105,6 +105,7 @@ class MainWindow(QMainWindow):
             self.label.setText(f"Graphed file: {file_name}")
 
 
+# Run the application, create the main window and show it
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     window = MainWindow()
