@@ -1,5 +1,4 @@
 import os
-import sys
 import subprocess
 import time
 import tkinter as tk
@@ -7,10 +6,12 @@ from tkinter import filedialog
 
 
 class LogisimController:
+    # Create the GUI window
     def __init__(self):
         self.logisim_path = ''
         self.circuit_path = ''
 
+    # Browse for the circuit file
     def browse_file(self):
         self.circuit_path = filedialog.askopenfilename(
             initialdir=os.getcwd(),
@@ -19,6 +20,7 @@ class LogisimController:
         )
         self.filepath_var.set(self.circuit_path)
 
+    # Run the simulation
     def run_simulation(self):
         # Start Logisim
         subprocess.Popen(['java', '-jar', self.logisim_path])
@@ -38,6 +40,7 @@ class LogisimController:
         # Run the simulation
         pyautogui.hotkey('ctrl', 'r')
 
+    # Create the GUI
     def create_gui(self):
         root = tk.Tk()
         root.title("Logisim Controller")
@@ -65,6 +68,7 @@ class LogisimController:
 
         root.mainloop()
 
+    # Browse for the Logisim executable file
     def browse_logisim(self):
         self.logisim_path = filedialog.askopenfilename(
             initialdir=os.getcwd(),
@@ -75,6 +79,7 @@ class LogisimController:
         self.logisim_path_entry.insert(0, self.logisim_path)
 
 
+# Run the program
 if __name__ == "__main__":
     logisim_controller = LogisimController()
     logisim_controller.create_gui()

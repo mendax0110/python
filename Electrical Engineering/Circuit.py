@@ -73,6 +73,10 @@ class MainWindow(QMainWindow):
         self.layout.addWidget(self.view)
         self.layout.addLayout(self.input_layout)
 
+        self.calculation_history = QTextEdit()
+        self.calculation_history.setReadOnly(True)
+        self.input_layout.addWidget(self.calculation_history)
+
     def calculate(self):
         voltage = self.voltage_input.text()
         resistance = self.resistance_input.text()
@@ -112,6 +116,10 @@ class MainWindow(QMainWindow):
                 self.resistance_label.setText("Resistance (Ω):")
                 self.current_label.setText("Current (mA):")
                 self.power_label.setText("Power (mW):")
+
+            # update the calculation history textbox
+            calculation_str = f"V = {voltage:.2f} V, R = {resistance:.2f} Ω, I = {current * 1000:.2f} mA, P = {power * 1000:.2f} mW\n"
+            self.calculation_history.insertPlainText(calculation_str)
 
         except ValueError:
             # if the inputs are invalid, clear all the labels
