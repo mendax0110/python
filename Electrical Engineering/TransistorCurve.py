@@ -3,6 +3,7 @@ from PyQt5 import QtWidgets, QtGui, QtCore
 import matplotlib.pyplot as plt
 
 
+# main window class for the Transistor Curve program
 class TransistorCurve(QtWidgets.QGraphicsItem):
     def __init__(self, x, y, transistor_type):
         super().__init__()
@@ -10,9 +11,11 @@ class TransistorCurve(QtWidgets.QGraphicsItem):
         self.y = y
         self.transistor_type = transistor_type
 
+    # bound the item
     def boundingRect(self):
         return QtCore.QRectF(0, 0, 5, 25)
 
+    # paint the item
     def paint(self, painter, option, widget):
         painter.setRenderHint(QtGui.QPainter.Antialiasing)
         painter.setPen(QtGui.QPen(QtGui.QColor(0, 0, 0), 2))
@@ -28,6 +31,7 @@ class Window(QtWidgets.QMainWindow):
         super().__init__()
         self.initUI()
 
+    # initialize the UI
     def initUI(self):
         self.setWindowTitle('Transistor Curves')
 
@@ -64,6 +68,7 @@ class Window(QtWidgets.QMainWindow):
         # Show the window
         self.show()
 
+    # show the curve
     def show_curve(self):
         # get the transistor type and plot the curve with matplotlib
         transistor_type = self.combo_box.currentText()
@@ -87,6 +92,7 @@ class Window(QtWidgets.QMainWindow):
         scene.addItem(transistor_curve)
 
 
+# call the main function
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
     window = Window()
