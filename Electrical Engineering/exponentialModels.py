@@ -16,6 +16,18 @@ def visualize_exponential(base, exponent, x_range):
     # Show the plot
     plt.show()
 
+    # Create a new window for the step-by-step calculations
+    calc_window = tk.Toplevel(root)
+    calc_window.title('Calculation Steps')
+
+    # Create a text widget to display the calculations
+    text_widget = tk.Text(calc_window, height=10, width=30)
+    text_widget.pack()
+
+    # Perform the step-by-step calculations and display them in the text widget
+    for x in x_range:
+        calculation = f'{base}^{x} = {base ** x}\n'
+        text_widget.insert(tk.END, calculation)
 
 # Create the root window
 root = tk.Tk()
@@ -47,3 +59,4 @@ submit_button.grid(row=2, column=1)
 
 # Run the main loop
 root.mainloop()
+
