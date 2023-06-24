@@ -1,41 +1,48 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QLabel, QLineEdit, QPushButton, QComboBox
-from sympy import integrate, symbols, sympify, Symbol
-from sympy.core.sympify import SympifyError
+from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QLabel, QLineEdit, QPushButton, QComboBox, QMainWindow
+from sympy import integrate, sympify, Symbol, SympifyError
+from sympy.plotting import plot
 
 
-class MainWindow(QWidget):
+class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
 
         self.setWindowTitle("Integral Calculator")
 
-        # Erstelle die UI-Elemente
+        # Create UI elements
         self.input_textbox = QLineEdit()
         self.output_textbox = QLineEdit()
         self.output_textbox.setReadOnly(True)
         self.integral_type_combobox = QComboBox()
-        self.integral_type_combobox.addItems(["Bestimmtes Integral", "Unbestimmtes Integral"])
-        self.calculate_button = QPushButton("Berechnen")
+        self.integral_type_combobox.addItems(["Definite Integral", "Indefinite Integral"])
+        self.calculate_button = QPushButton("Calculate")
         self.calculate_button.clicked.connect(self.calculate_integral)
+        self.plot_button = QPushButton("Plot Curve")
+        self.plot_button.clicked.connect(self.plot_curve)
+        self.setGeometry(100, 100, 400, 250)
 
-        # Erstelle das Layout
+        # Create the layout
         layout = QVBoxLayout()
-        layout.addWidget(QLabel("Eingabe"))
+        layout.addWidget(QLabel("Input"))
         layout.addWidget(self.input_textbox)
-        layout.addWidget(QLabel("Ausgabe"))
+        layout.addWidget(QLabel("Output"))
         layout.addWidget(self.output_textbox)
-        layout.addWidget(QLabel("Integraltyp"))
+        layout.addWidget(QLabel("Integral Type"))
         layout.addWidget(self.integral_type_combobox)
         layout.addWidget(self.calculate_button)
+        layout.addWidget(self.plot_button)
 
-        self.setLayout(layout)
+        # Create a central widget and set the layout
+        central_widget = QWidget()
+        central_widget.setLayout(layout)
+        self.setCentralWidget(central_widget)
 
     def calculate_integral(self):
-        # Hole die Eingabe aus der TextBox
+        # Get the input expression from the textbox
         input_expression = self.input_textbox.text()
 
-        # Bestimmte oder unbestimmte Integration auswählen
+        # Select definite or indefinite integration
         integral_type = self.integral_type_combobox.currentText()
 
         try:
@@ -43,8 +50,8 @@ class MainWindow(QWidget):
             expr = sympify(input_expression)
             result = ""
 
-            if integral_type == "Bestimmtes Integral":
-                # Führe bestimmte Integration durch
+            if integral_type == "Definite Integral":
+                # Perform definite integration
                 a = Symbol('a')
                 b = Symbol('b')
                 integral_value = integrate(expr, (x, a, b))
@@ -54,21 +61,44 @@ class MainWindow(QWidget):
                 else:
                     result = str(integral_value)
 
-            elif integral_type == "Unbestimmtes Integral":
-                # Führe unbestimmte Integration durch
+            elif integral_type == "Indefinite Integral":
+                # Perform indefinite integration
                 integral_expr = integrate(expr, x)
                 result = str(integral_expr) + " + C"
 
-            # Zeige das Ergebnis in der Ausgabe-TextBox an
+            # Display the result in the output textbox
             self.output_textbox.setText(result)
 
         except SympifyError:
-            # Fehlerbehandlung für ungültige mathematische Ausdrücke
-            self.output_textbox.setText("Ungültiger mathematischer Ausdruck.")
+            # Error handling for invalid mathematical expressions
+            self.output_textbox.setText("Invalid mathematical expression.")
 
         except Exception as e:
-            # Allgemeine Fehlerbehandlung
-            self.output_textbox.setText("Fehler: " + str(e))
+            # General error handling
+            self.output_textbox.setText("Error: " + str(e))
+
+    def plot_curve(self):
+        # Get the input expression from the textbox
+        input_expression = self.input_textbox.text()
+
+        try:
+            x = Symbol('x')
+            expr = sympify(input_expression)
+
+            # Plot the characteristic curve of the integral
+            p = plot(expr, show=False)
+            p.title = 'Characteristic Curve'
+            p.xlabel = 'x'
+            p.ylabel = 'y'
+            p.show()
+
+        except SympifyError:
+            # Error handling for invalid mathematical expressions
+            self.output_textbox.setText("Invalid mathematical expression.")
+
+        except Exception as e:
+            # General error handling
+            self.output_textbox.setText("Error: " + str(e))
 
 
 if __name__ == "__main__":
@@ -76,5 +106,3 @@ if __name__ == "__main__":
     window = MainWindow()
     window.show()
     sys.exit(app.exec_())
-
-
