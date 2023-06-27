@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
 
 
+# method to calculate the sine wave
 def sine_wave(frequency, num_terms):
     # Generate the x values
     x = np.linspace(0, 2 * np.pi, 1000)
@@ -19,6 +20,7 @@ def sine_wave(frequency, num_terms):
     return x, y
 
 
+# Create the application
 class SineWaveGenerator(tk.Tk):
     def __init__(self, *args, **kwargs):
         tk.Tk.__init__(self, *args, **kwargs)
@@ -59,6 +61,7 @@ class SineWaveGenerator(tk.Tk):
         self.toolbar.update()
         self.canvas.get_tk_widget().pack(side="top", fill="both", expand=True)
 
+    # method to generate the sine wave
     def generate_sine_wave(self):
         # Get the input values from the entry fields
         frequency = float(self.frequency_entry.get())
